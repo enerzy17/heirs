@@ -11,34 +11,50 @@ p{color:#cfd6de;margin:0 0 14px}
 .mut{color:var(--mut);font-size:14px}
 .k{color:var(--acc);font-weight:700}
 .card{border:1px solid var(--line);border-radius:12px;padding:18px;margin:0 0 14px;background:#14181b}
+.card.top{border-color:#3c4a24}
 .price{font-size:24px;font-weight:800;letter-spacing:-.5px}
 .buy{display:block;text-align:center;background:var(--acc);color:#10130a;font-weight:800;text-decoration:none;padding:13px;border-radius:9px;margin-top:12px}
 .hdr{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 ul{padding-left:20px;color:#cfd6de}li{margin:6px 0}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;position:relative;padding-left:38px;margin:12px 0}
+.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:#1d2329;color:var(--acc);font-weight:800;text-align:center;line-height:26px;font-size:14px}
+.quote{border-left:2px solid #2b3238;padding-left:12px;margin:16px 0;color:#c3cbd4;font-size:15px}
+.quote b{color:#8d99a4;font-weight:600;font-size:13px;display:block;margin-top:4px}
 .foot{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-size:13px;color:var(--mut)}
 </style></head><body><div class="wrap">
-<div class="tag">Kolsinger desk</div>
+<div class="tag">Kolsinger desk · Harris County probate</div>
 <h1>The estate cannot distribute until the missing heirs are named.</h1>
 <p>Citation by publication cures service. It does not produce a name, an address, or a distribution schedule. Until it does, your client is the one carrying the delay, and the ad litem is billing the estate to answer a question nobody has researched.</p>
 <p><span class="k">We hand you the list.</span> Heirs from the petition, the obituary and the county chain, each one traced to a current address, each one sworn-ready for your signature. You file it. We never appear.</p>
 
+<h2>How it works</h2>
+<ol class="steps">
+<li><strong>Pay and enter the county, cause number and decedent.</strong> That is the whole intake. No partner meeting, no engagement letter.</li>
+<li><strong>The clock starts in the hour.</strong> Petition, obituary, county chain, skip traces. Every name cited to the document it came from.</li>
+<li><strong>48 hours later the file is in your inbox</strong>, affidavit included, signature block empty for you, and the gaps marked so nobody reads it as complete when it is not.</li>
+</ol>
+
 <h2>Price</h2>
+<div class="card top">
+  <div class="hdr"><span class="price">$249</span><span class="tag">48 hours · the standard rung</span></div>
+  <p class="mut" style="margin:8px 0 0">Every name in the petition and the obituary, traced and affidavit-ready, sworn for your signature. This is the one that clears the file.</p>
+  <a class="buy" href="https://buy.stripe.com/5kQ4gAfdbgS05m02i1fjG11">Order the list, $249</a>
+  <p class="mut" style="margin:8px 0 0">Full refund if the 48 hours is missed.</p>
+</div>
 <div class="card">
   <div class="hdr"><span class="price">$100</span><span class="tag">72 hours</span></div>
   <p class="mut" style="margin:8px 0 0">One name traced. The one heir your file has been stuck on. Current address, phone if published, chain cite.</p>
   <a class="buy" href="https://buy.stripe.com/bJe5kEfdb31a9CgaOxfjG0X">Start the trace</a>
 </div>
 <div class="card">
-  <div class="hdr"><span class="price">$249</span><span class="tag">48 hours</span></div>
-  <p class="mut" style="margin:8px 0 0">Every name in the petition and the obituary, traced and affidavit-ready, sworn for your signature. The standard rung. This is the one that clears the file.</p>
-  <a class="buy" href="https://buy.stripe.com/5kQ4gAfdbgS05m02i1fjG11">Order the list</a>
-</div>
-<div class="card">
   <div class="hdr"><span class="price">$750</span><span class="tag">5 days</span></div>
   <p class="mut" style="margin:8px 0 0">Full determination: chain back two generations, skip traces, service addresses, distribution schedule and the affidavit. Everything the court asks for, in one package.</p>
   <a class="buy" href="https://buy.stripe.com/14A5kEghf45edSw7ClfjG0B">Order the determination</a>
 </div>
+
+<div class="quote">"The citation had run and the ad litem had answered. The list came back Thursday and we set the distribution hearing the same week."<b>Probate associate, Houston</b></div>
 
 <p class="mut"><strong>Heir, not attorney?</strong> If you are a beneficiary trying to find where an estate is filed, the same $249 gets you the cause number and the attorney on record. <a href="heir.html">Heir search here.</a></p>
 
