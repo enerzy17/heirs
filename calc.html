@@ -74,35 +74,34 @@ function calc(){
       pre=document.getElementById("pre").value, par=document.getElementById("par").value,
       sib=+document.getElementById("sib").value, comm=document.getElementById("comm").value,
       v=parseFloat((document.getElementById("val").value||"").replace(/[^0-9.]/g,""));
-  var out=document.getElementById("out"), frac="", sec="", to="", note="";
+  var out=document.getElementById("out"), frac="", sec="", to="", note="", pct=0;
   if(sp==="y"&&k>0&&comm==="c"){
     frac="The whole community half goes to the spouse."; to="spouse"; sec="Tex. Est. Code § 201.003(b)";
     note="Children take under the separate estate only, and only if there is separate property: two thirds of personal property, remainder after the spouse's life estate in one third of the land (§ 201.002(b)).";
   } else if(sp==="y"&&k>0){
-    frac=(1/k*2/3*100).toFixed(2)+"% of the personal estate to each child"; to="child"; sec="Tex. Est. Code § 201.002(b)";
+    pct=1/k*2/3*100; frac=pct.toFixed(2)+"% of the personal estate to each child"; to="child"; sec="Tex. Est. Code § 201.002(b)";
     note="The spouse takes one third of personal property and a life estate in one third of the land. The children take the rest, and the land only on the spouse's death.";
   } else if(sp==="y"&&k===0){
     frac="All personal property to the spouse, one half of the land, the other half by descent."; to=""; sec="Tex. Est. Code § 201.002(c)";
     note="If the decedent left no parent and no sibling, the spouse takes everything (§ 201.002(d)).";
   } else if(k>0){
-    frac=(100/k).toFixed(2)+"% to each surviving child"; to="child"; sec="Tex. Est. Code § 201.001(b)";
+    pct=100/k; frac=pct.toFixed(2)+"% to each surviving child"; to="child"; sec="Tex. Est. Code § 201.001(b)";
     note=pre==="y"?"A child who died first does not lose his blood: his children split his share, per capita with representation, § 201.101.":"No spouse, so the children take the entire estate in equal parts.";
   } else if(par==="2"){
-    frac="50% to the father, 50% to the mother"; to="parent"; sec="Tex. Est. Code § 201.001(c)";
+    frac="50% to the father, 50% to the mother"; to="parent"; pct=50; sec="Tex. Est. Code § 201.001(c)";
   } else if(par==="1"){
-    frac="50% to the surviving parent, 50% split among the brothers and sisters"; to=""; sec="Tex. Est. Code § 201.001(d)";
+    frac="50% to the surviving parent, 50% split among the brothers and sisters"; to=""; pct=50; sec="Tex. Est. Code § 201.001(d)";
     note=sib===0?"With no sibling, the surviving parent takes all of it (§ 201.001(d)(2)).":"";
   } else if(sib>0){
-    frac=(100/Math.min(sib,4)).toFixed(2)+"% to each brother and sister"; to="sibling"; sec="Tex. Est. Code § 201.001(e)";
+    pct=100/Math.min(sib,4); frac=pct.toFixed(2)+"% to each brother and sister"; to="sibling"; sec="Tex. Est. Code § 201.001(e)";
   } else {
     frac="Half to the paternal kindred, half to the maternal kindred"; to=""; sec="Tex. Est. Code § 201.001(f)";
     note="Grandparents first, then their descendants, and so on without end (§ 201.001(g)).";
   }
   var h='<div class="card"><div class="mut">The statute divides the estate like this:</div><div class="big" style="margin:10px 0 4px">'+(to?frac.replace(/^[\d.]+% /,""):frac)+'</div>';
-  if(to&&frac.indexOf("%")>-1) h+='<div style="font-size:28px;font-weight:800">'+(to==="child"?(100/k).toFixed(2)+"%":frac.split(" ")[0])+' <span class="mut" style="font-size:14px;font-weight:400">each '+(to==="child"?"child":"heir")+'</span></div>';
-  if(v>0&&to&&frac.indexOf("%")>-1){
-    var p=to==="child"?1/k:1/Math.min(sib,4);
-    h+='<p style="margin-top:12px">On a <b>'+money(v)+'</b> estate that is <b class="k">'+money(v*p)+'</b> a '+(to==="child"?"child":"heir")+', before debts, funeral, administration and the spouse.</p>';
+  if(to&&pct>0) h+='<div style="font-size:28px;font-weight:800">'+pct.toFixed(2)+'% <span class="mut" style="font-size:14px;font-weight:400">each '+(to==="child"?"child":"heir")+'</span></div>';
+  if(v>0&&to&&pct>0){
+    h+='<p style="margin-top:12px">On a <b>'+money(v)+'</b> estate that is <b class="k">'+money(v*pct/100)+'</b> a '+(to==="child"?"child":"heir")+', before debts, funeral, administration and the spouse.</p>';
   }
   h+='<div class="cite">'+sec+'</div>';
   if(note) h+='<p class="mut" style="margin-top:10px">'+note+'</p>';
