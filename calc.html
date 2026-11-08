@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Texas intestate share calculator, free, by cause number</title>
+<style>
+:root{--bg:#0f1113;--fg:#eceff3;--mut:#9aa4ae;--line:#242a30;--acc:#c8f04a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.5 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:26px 18px 70px}
+h1{font-size:29px;line-height:1.12;margin:0 0 12px;letter-spacing:-.6px}
+h2{font-size:18px;margin:28px 0 8px}
+p{color:#cfd6de;margin:0 0 13px}
+.mut{color:var(--mut);font-size:14px}
+.k{color:var(--acc);font-weight:700}
+.lbl{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:16px 0 6px}
+select,input{width:100%;background:#14181b;color:var(--fg);border:1px solid var(--line);border-radius:9px;padding:12px;font:16px inherit}
+.grid{display:flex;gap:10px}.grid>div{flex:1}
+button{width:100%;background:var(--acc);color:#10130a;font-weight:800;border:0;border-radius:9px;padding:15px;font-size:17px;margin-top:20px;cursor:pointer}
+.card{border:1px solid var(--line);border-radius:12px;padding:16px;margin:18px 0;background:#14181b}
+.big{font-size:34px;font-weight:800;letter-spacing:-1px;color:var(--acc);line-height:1}
+.cite{font-size:13px;color:#9aa4ae;border-left:3px solid #2b3238;padding-left:10px;margin:12px 0 0}
+.buy{display:block;text-align:center;background:var(--acc);color:#10130a;font-weight:800;text-decoration:none;padding:14px;border-radius:9px;margin-top:10px}
+.foot{border-top:1px solid var(--line);margin-top:40px;padding-top:14px;font-size:13px;color:var(--mut)}
+</style></head><body><div class="wrap">
+<div class="mut" style="letter-spacing:.14em;text-transform:uppercase;font-size:11px">Kolsinger desk · Texas probate</div>
+<h1>What your share of the estate actually is.</h1>
+<p>Texas divides an intestate estate by statute, not by who was closest to him at the end. Pick the family facts and the section prints with the fraction. Free, no account, no email.</p>
+
+<label class="lbl" for="sp">Did a spouse survive?</label>
+<select id="sp"><option value="n">No surviving spouse</option><option value="y">Yes, a spouse survived</option></select>
+
+<label class="lbl" for="kids">Children of the decedent who survived</label>
+<select id="kids"><option value="0">None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>
+
+<label class="lbl" for="pre">Any child died before the decedent, leaving children</label>
+<select id="pre"><option value="n">No</option><option value="y">Yes</option></select>
+
+<label class="lbl" for="par">Parents of the decedent still living</label>
+<select id="par"><option value="0">Neither</option><option value="1">One</option><option value="2">Both</option></select>
+
+<label class="lbl" for="sib">Brothers and sisters still living</label>
+<select id="sib"><option value="0">None</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4 or more</option></select>
+
+<div class="grid">
+<div><label class="lbl" for="val">Estate value, if you know it</label><input id="val" inputmode="numeric" placeholder="250000"></div>
+<div><label class="lbl" for="comm">Property type</label><select id="comm"><option value="c">Community</option><option value="s">Separate</option></select></div>
+</div>
+
+<button id="go">Work out the share</button>
+
+<div id="out"></div>
+
+<h2>Then the paperwork</h2>
+<p class="mut">The fraction is free. The paper that gets it out of the county is not, and the county rejects a form that does not track the section above.</p>
+<div class="card">
+  <div style="font-size:26px;font-weight:800">$129</div>
+  <div class="mut">Small estate packet. Affidavit of heirship under Tex. Est. Code ch. 205, your family facts in it, filing checklist, sworn-ready for your signature. In your inbox tonight. Only where the estate is under $75,000 and no administration is open.</div>
+  <a class="buy" href="https://buy.stripe.com/8x2bJ22qpbxG3dS1dXfjG1u">Order the packet, $129</a>
+</div>
+<div class="card">
+  <div style="font-size:26px;font-weight:800">$250</div>
+  <div class="mut">Full administration paper run. Application, citation, proof of heirship, order, oath, inventory, distribution schedule. Every paper from filing to distribution, drafted on your cause. 48 hours.</div>
+  <a class="buy" href="https://buy.stripe.com/00wcN68ONbxG6q4bSBfjG06">Order the paper run, $250</a>
+</div>
+<p class="mut">Two estates or two files: <a class="k" href="https://buy.stripe.com/4gMbJ2e977hq3dS9KtfjG1v">$219 for the pair</a>. Full refund if the county rejects a form we drafted. We draft, you sign. No appearance.</p>
+
+<div class="foot">Kolsinger desk · kolsinger.com · replies to r4wdesk4183@fldubai.com<br>
+Postal: 128 2 Ave SE, Calgary, Alberta T2G 5J5, Canada<br>
+Drafting and records only. Not legal advice, not a law firm, no filing and no appearance.</div>
+</div>
+<script>
+var L={pct:0.20,comm:0.01};
+function money(n){return "$"+Math.round(n).toLocaleString("en-US")}
+function calc(){
+  var sp=document.getElementById("sp").value, k=+document.getElementById("kids").value,
+      pre=document.getElementById("pre").value, par=document.getElementById("par").value,
+      sib=+document.getElementById("sib").value, comm=document.getElementById("comm").value,
+      v=parseFloat((document.getElementById("val").value||"").replace(/[^0-9.]/g,""));
+  var out=document.getElementById("out"), frac="", sec="", to="", note="";
+  if(sp==="y"&&k>0&&comm==="c"){
+    frac="The whole community half goes to the spouse."; to="spouse"; sec="Tex. Est. Code § 201.003(b)";
+    note="Children take under the separate estate only, and only if there is separate property: two thirds of personal property, remainder after the spouse's life estate in one third of the land (§ 201.002(b)).";
+  } else if(sp==="y"&&k>0){
+    frac=(1/k*2/3*100).toFixed(2)+"% of the personal estate to each child"; to="child"; sec="Tex. Est. Code § 201.002(b)";
+    note="The spouse takes one third of personal property and a life estate in one third of the land. The children take the rest, and the land only on the spouse's death.";
+  } else if(sp==="y"&&k===0){
+    frac="All personal property to the spouse, one half of the land, the other half by descent."; to=""; sec="Tex. Est. Code § 201.002(c)";
+    note="If the decedent left no parent and no sibling, the spouse takes everything (§ 201.002(d)).";
+  } else if(k>0){
+    frac=(100/k).toFixed(2)+"% to each surviving child"; to="child"; sec="Tex. Est. Code § 201.001(b)";
+    note=pre==="y"?"A child who died first does not lose his blood: his children split his share, per capita with representation, § 201.101.":"No spouse, so the children take the entire estate in equal parts.";
+  } else if(par==="2"){
+    frac="50% to the father, 50% to the mother"; to="parent"; sec="Tex. Est. Code § 201.001(c)";
+  } else if(par==="1"){
+    frac="50% to the surviving parent, 50% split among the brothers and sisters"; to=""; sec="Tex. Est. Code § 201.001(d)";
+    note=sib===0?"With no sibling, the surviving parent takes all of it (§ 201.001(d)(2)).":"";
+  } else if(sib>0){
+    frac=(100/Math.min(sib,4)).toFixed(2)+"% to each brother and sister"; to="sibling"; sec="Tex. Est. Code § 201.001(e)";
+  } else {
+    frac="Half to the paternal kindred, half to the maternal kindred"; to=""; sec="Tex. Est. Code § 201.001(f)";
+    note="Grandparents first, then their descendants, and so on without end (§ 201.001(g)).";
+  }
+  var h='<div class="card"><div class="mut">The statute divides the estate like this:</div><div class="big" style="margin:10px 0 4px">'+(to?frac.replace(/^[\d.]+% /,""):frac)+'</div>';
+  if(to&&frac.indexOf("%")>-1) h+='<div style="font-size:28px;font-weight:800">'+(to==="child"?(100/k).toFixed(2)+"%":frac.split(" ")[0])+' <span class="mut" style="font-size:14px;font-weight:400">each '+(to==="child"?"child":"heir")+'</span></div>';
+  if(v>0&&to&&frac.indexOf("%")>-1){
+    var p=to==="child"?1/k:1/Math.min(sib,4);
+    h+='<p style="margin-top:12px">On a <b>'+money(v)+'</b> estate that is <b class="k">'+money(v*p)+'</b> a '+(to==="child"?"child":"heir")+', before debts, funeral, administration and the spouse.</p>';
+  }
+  h+='<div class="cite">'+sec+'</div>';
+  if(note) h+='<p class="mut" style="margin-top:10px">'+note+'</p>';
+  h+='<p class="mut" style="margin-top:12px">Before debts, funeral costs, administration and any spouse. A will overrides all of it. Homestead and exempt property sit outside the share.</p>';
+  h+='<p><a class="k" href="https://buy.stripe.com/8x2bJ22qpbxG3dS1dXfjG1u">The packet that files this is $129</a>, in your inbox tonight.</p></div>';
+  out.innerHTML=h;
+}
+document.getElementById("go").addEventListener("click",calc);calc();
+</script>
+</body></html>
